@@ -1,0 +1,76 @@
+{
+  "posts": [
+    {
+      "title": "Simba edge Yanga 2–1 in a Mainland derby for the ages",
+      "category": "Sport",
+      "excerpt": "A last-minute strike settles a fierce derby in front of a packed house.",
+      "time": "6m ago",
+      "live": true,
+      "featured": true
+    },
+    {
+      "title": "Apple's new on-device chip could end the cloud-AI era for phones",
+      "category": "Tech",
+      "excerpt": "The new silicon runs full AI models locally, cutting reliance on the cloud.",
+      "time": "8m ago",
+      "live": false,
+      "featured": false
+    },
+    {
+      "title": "Taifa Stars arrive in Cairo for crunch AFCON qualifier",
+      "category": "Sport",
+      "excerpt": "The squad lands ahead of Saturday's must-win qualifier.",
+      "time": "32m ago",
+      "live": false,
+      "featured": false
+    },
+    {
+      "title": "Bitcoin steady above $71K as ETF inflows accelerate",
+      "category": "Business",
+      "excerpt": "Institutional demand continues to push prices higher this week.",
+      "time": "1h ago",
+      "live": false,
+      "featured": false
+    },
+    {
+      "title": "OpenAI teases a new reasoning model ahead of Thursday event",
+      "category": "Tech",
+      "excerpt": "Early demos suggest major gains in multi-step problem solving.",
+      "time": "2h ago",
+      "live": false,
+      "featured": false
+    },
+    {
+      "title": "Ronaldo confirms he'll play until age 45, says fitness team",
+      "category": "Sport",
+      "excerpt": "The forward's camp says his recovery routine has him ahead of peers a decade younger.",
+      "time": "12m ago",
+      "live": false,
+      "featured": false
+    },
+    {
+      "title": "Starlink begins direct-to-phone rollout across East Africa",
+      "category": "Tech",
+      "excerpt": "No SIM swap required — standard 5G phones connect to satellite for texts first.",
+      "time": "25m ago",
+      "live": false,
+      "featured": false
+    },
+    {
+      "title": "NBA trade deadline: three moves that reshaped the West",
+      "category": "Sport",
+      "excerpt": "A late blockbuster sent shockwaves through the playoff race.",
+      "time": "41m ago",
+      "live": false,
+      "featured": false
+    },
+    {
+      "title": "Local fintech startup raises $4M to expand mobile money rails",
+      "category": "Business",
+      "excerpt": "The Dar-based team plans to launch in three new markets by Q4.",
+      "time": "1h ago",
+      "live": false,
+      "featured": false
+    }
+  ]
+}
