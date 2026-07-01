@@ -1,0 +1,29 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "site"
+    label: "Midizo — Habari"
+    files:
+      - label: "Habari zote (Homepage)"
+        name: "posts"
+        file: "content/posts.json"
+        fields:
+          - label: "Orodha ya Habari"
+            name: "posts"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - {label: "Kichwa cha habari (Title)", name: "title", widget: "string"}
+              - label: "Aina (Category)"
+                name: "category"
+                widget: "select"
+                options: ["Sport", "Tech", "Business", "World"]
+              - {label: "Maelezo mafupi (Excerpt)", name: "excerpt", widget: "text", required: false}
+              - {label: "Muda (mfano: 12m ago)", name: "time", widget: "string", required: false}
+              - {label: "Ni LIVE sasa?", name: "live", widget: "boolean", default: false}
+              - {label: "Ionyeshe juu kabisa (Featured)", name: "featured", widget: "boolean", default: false}
