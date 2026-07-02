@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midizo — The Pulse of Sport & Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1116;
+    --ink-raised:#161B22;
+    --ink-line:#242B35;
+    --paper:#F5F3EE;
+    --steel:#8B93A1;
+    --steel-dim:#5A6270;
+    --orange:#FF5A1F;
+    --teal:#1FB6A6;
+    --yellow:#FFC93C;
+    --font-display:'Archivo Black', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--orange);color:var(--ink);}
+
+  /* ===== Skip link / focus ===== */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--yellow);
+    outline-offset:3px;
+  }
+
+  /* ===== Header ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(14,17,22,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;
+    max-width:1200px;margin:0 auto;
+  }
+  .logo{
+    font-family:var(--font-display);
+    font-size:22px;
+    letter-spacing:-0.5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo-dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--orange);
+    box-shadow:0 0 0 0 rgba(255,90,31,0.5);
+    animation:pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot{
+    0%{box-shadow:0 0 0 0 rgba(255,90,31,0.5);}
+    70%{box-shadow:0 0 0 8px rgba(255,90,31,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,90,31,0);}
+  }
+  nav{display:flex;gap:28px;font-size:14px;font-weight:600;}
+  nav a{color:var(--steel);transition:color .2s;position:relative;}
+  nav a:hover, nav a.active{color:var(--paper);}
+  nav a.active::after{
+    content:'';position:absolute;bottom:-18px;left:0;right:0;height:2px;background:var(--orange);
+  }
+  .nav-desktop{display:flex;}
+  .menu-btn{display:none;background:none;border:none;color:var(--paper);font-size:22px;cursor:pointer;}
+
+  /* ===== Pulse ticker ===== */
+  .pulse-bar{
+    background:var(--ink-raised);
+    border-bottom:1px solid var(--ink-line);
+    overflow:hidden;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    height:38px;
+  }
+  .pulse-label{
+    flex-shrink:0;
+    background:var(--orange);
+    color:var(--ink);
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:1px;
+    padding:0 14px;
+    height:100%;
+    display:flex;align-items:center;
+    z-index:2;
+  }
+  .pulse-track-wrap{overflow:hidden;flex:1;position:relative;}
+  .pulse-track{
+    display:inline-flex;
+    animation:scroll-left 32s linear infinite;
+    font-family:var(--font-mono);
+    font-size:12.5px;
+  }
+  .pulse-track span{
+    padding:0 26px;
+    color:var(--steel);
+    border-right:1px solid var(--ink-line);
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .pulse-track b{color:var(--paper);font-weight:600;}
+  .tag-live{color:var(--yellow);font-weight:700;}
+  @keyframes scroll-left{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .pulse-track{animation:none;}
+    .logo-dot{animation:none;}
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    max-width:1200px;margin:0 auto;
+    padding:48px 20px 32px;
+  }
+  .hero-top{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:20px;flex-wrap:wrap;gap:12px;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;color:var(--teal);
+    letter-spacing:2px;text-transform:uppercase;
+    display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:'';width:16px;height:1px;background:var(--teal);}
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:24px;
+  }
+  .feature-card{
+    background:var(--ink-raised);
+    border:1px solid var(--ink-line);
+    border-radius:4px;
+    overflow:hidden;
+    position:relative;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .feature-card:hover{transform:translateY(-3px);border-color:var(--orange);}
+  .feature-img{
+    height:280px;
+    background:linear-gradient(135deg, #1a2530 0%, #0E1116 100%);
+    position:relative;
+    display:flex;align-items:flex-end;
+    padding:24px;
+  }
+  .feature-img.tech-grad{background:linear-gradient(135deg, #0e2e2c 0%, #0E1116 100%);}
+  .cat-chip{
+    position:absolute;top:16px;left:16px;
+    font-family:var(--font-mono);
+    font-size:10.5px;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;
+    padding:5px 10px;border-radius:2px;
+  }
+  .chip-sport{background:var(--orange);color:var(--ink);}
+  .chip-tech{background:var(--teal);color:var(--ink);}
+  .live-badge{
+    position:absolute;top:16px;right:16px;
+    font-family:var(--font-mono);font-size:10px;font-weight:700;
+    color:var(--yellow);display:flex;align-items:center;gap:5px;
+  }
+  .live-badge::before{
+    content:'';width:6px;height:6px;border-radius:50%;background:var(--yellow);
+    animation:pulse-dot 1.5s infinite;
+  }
+  .feature-title{
+    font-family:var(--font-display);
+    font-size:26px;line-height:1.15;
+    color:var(--paper);
+  }
+  .feature-body{padding:18px 22px 22px;}
+  .feature-meta{
+    font-family:var(--font-mono);font-size:11.5px;color:var(--steel-dim);
+    display:flex;gap:14px;margin-top:10px;
+  }
+
+  .side-col{display:flex;flex-direction:column;gap:16px;}
+  .side-card{
+    background:var(--ink-raised);
+    border:1px solid var(--ink-line);
+    border-radius:4px;
+    padding:18px;
+    display:flex;gap:14px;
+    transition:border-color .2s;
+  }
+  .side-card:hover{border-color:var(--steel-dim);}
+  .side-num{
+    font-family:var(--font-display);
+    font-size:28px;color:var(--ink-line);
+    flex-shrink:0;line-height:1;
+  }
+  .side-title{font-size:15px;font-weight:600;line-height:1.35;margin-bottom:6px;}
+  .side-meta{font-family:var(--font-mono);font-size:11px;color:var(--steel-dim);}
+
+  /* ===== Score strip ===== */
+  .score-strip{
+    max-width:1200px;margin:0 auto;padding:0 20px 40px;
+  }
+  .strip-head{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:14px;
+  }
+  .strip-head h2{font-family:var(--font-mono);font-size:13px;letter-spacing:1.5px;color:var(--steel);text-transform:uppercase;}
+  .score-row{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+  }
+  .score-card{
+    background:var(--ink-raised);border:1px solid var(--ink-line);
+    border-radius:4px;padding:16px;
+  }
+  .score-league{font-family:var(--font-mono);font-size:10px;color:var(--steel-dim);letter-spacing:1px;margin-bottom:10px;}
+  .score-match{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;}
+  .score-num{font-family:var(--font-mono);font-weight:700;color:var(--orange);font-size:16px;}
+  .score-time{font-family:var(--font-mono);font-size:10.5px;color:var(--steel-dim);margin-top:8px;}
+
+  /* ===== Feed section ===== */
+  .feed{max-width:1200px;margin:0 auto;padding:20px 20px 60px;}
+  .feed-head{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:22px;border-bottom:1px solid var(--ink-line);padding-bottom:14px;
+  }
+  .feed-head h2{font-family:var(--font-display);font-size:22px;}
+  .filter-pills{display:flex;gap:8px;}
+  .pill{
+    font-family:var(--font-mono);font-size:11px;font-weight:600;
+    padding:6px 12px;border-radius:20px;border:1px solid var(--ink-line);
+    color:var(--steel);cursor:pointer;background:none;
+  }
+  .pill.active{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+  .feed-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  }
+  .story-card{
+    background:var(--ink-raised);border:1px solid var(--ink-line);border-radius:4px;
+    overflow:hidden;transition:transform .2s, border-color .2s;
+  }
+  .story-card:hover{transform:translateY(-2px);border-color:var(--steel-dim);}
+  .story-thumb{
+    height:150px;position:relative;
+    background:linear-gradient(160deg,#182029,#0E1116);
+  }
+  .story-thumb.tech{background:linear-gradient(160deg,#0f2a28,#0E1116);}
+  .story-body{padding:16px;}
+  .story-title{font-size:15px;font-weight:700;line-height:1.35;margin:10px 0 8px;}
+  .story-excerpt{font-size:13px;color:var(--steel);line-height:1.5;margin-bottom:12px;}
+  .story-meta{
+    font-family:var(--font-mono);font-size:10.5px;color:var(--steel-dim);
+    display:flex;justify-content:space-between;border-top:1px solid var(--ink-line);padding-top:10px;
+  }
+
+  /* ===== Ad slot ===== */
+  .ad-slot{
+    max-width:1200px;margin:0 auto 60px;padding:0 20px;
+  }
+  .ad-box{
+    border:1px dashed var(--ink-line);
+    border-radius:4px;
+    padding:28px;
+    text-align:center;
+    color:var(--steel-dim);
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:1px;
+  }
+
+  /* ===== Footer ===== */
+  footer{
+    border-top:1px solid var(--ink-line);
+    padding:40px 20px;
+  }
+  .footer-inner{
+    max-width:1200px;margin:0 auto;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  }
+  .footer-logo{font-family:var(--font-display);font-size:18px;}
+  .footer-tag{font-size:12.5px;color:var(--steel-dim);margin-top:6px;}
+  .footer-links{display:flex;gap:22px;font-size:13px;color:var(--steel);}
+
+  /* ===== Responsive ===== */
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .score-row{grid-template-columns:repeat(2,1fr);}
+    .feed-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:640px){
+    .nav-desktop{display:none;}
+    .menu-btn{display:block;}
+    .feature-title{font-size:21px;}
+    .feature-img{height:200px;padding:18px;}
+    .score-row{grid-template-columns:1fr 1fr;}
+    .feed-grid{grid-template-columns:1fr;}
+    .footer-inner{flex-direction:column;align-items:flex-start;}
+    .pulse-label{font-size:10px;padding:0 10px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo"><span class="logo-dot"></span>MIDIZO</div>
+    <nav class="nav-desktop">
+      <a href="#" class="active">Pulse</a>
+      <a href="#">Sport</a>
+      <a href="#">Tech</a>
+      <a href="#">Business</a>
+      <a href="#">World</a>
+    </nav>
+    <button class="menu-btn" aria-label="Open menu">☰</button>
+  </div>
+  <div class="pulse-bar">
+    <div class="pulse-label">● LIVE PULSE</div>
+    <div class="pulse-track-wrap">
+      <div class="pulse-track">
+        <span class="tag-live">● LIVE</span>
+        <span><b>Simba SC</b> 2–1 Yanga — 78'</span>
+        <span>Apple unveils new on-device AI chip, ships Q3</span>
+        <span><b>Man City</b> 3–0 at half — Haaland x2</span>
+        <span>Bitcoin holds above $71K as ETF inflows rise</span>
+        <span>Taifa Stars land in Cairo ahead of AFCON qualifier</span>
+        <span>OpenAI rumored to launch new reasoning model this week</span>
+        <span class="tag-live">● LIVE</span>
+        <span><b>Simba SC</b> 2–1 Yanga — 78'</span>
+        <span>Apple unveils new on-device AI chip, ships Q3</span>
+        <span><b>Man City</b> 3–0 at half — Haaland x2</span>
+        <span>Bitcoin holds above $71K as ETF inflows rise</span>
+        <span>Taifa Stars land in Cairo ahead of AFCON qualifier</span>
+        <span>OpenAI rumored to launch new reasoning model this week</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-top">
+    <div class="eyebrow">Today's Pulse</div>
+  </div>
+  <div class="hero-grid">
+    <article class="feature-card">
+      <div class="feature-img">
+        <span class="cat-chip chip-sport">Sport</span>
+        <span class="live-badge">LIVE</span>
+        <h1 class="feature-title">Simba edge Yanga 2–1 in a Mainland derby for the ages</h1>
+      </div>
+      <div class="feature-body">
+        <p class="feature-meta">
+          <span>Football</span><span>·</span><span>4 min read</span><span>·</span><span>Updated 6m ago</span>
+        </p>
+      </div>
+    </article>
+    <div class="side-col">
+      <article class="side-card">
+        <span class="side-num">01</span>
+        <div>
+          <div class="side-title">Apple's new on-device chip could end the cloud-AI era for phones</div>
+          <div class="side-meta">TECH · 8m ago</div>
+        </div>
+      </article>
+      <article class="side-card">
+        <span class="side-num">02</span>
+        <div>
+          <div class="side-title">Taifa Stars arrive in Cairo for crunch AFCON qualifier</div>
+          <div class="side-meta">SPORT · 32m ago</div>
+        </div>
+      </article>
+      <article class="side-card">
+        <span class="side-num">03</span>
+        <div>
+          <div class="side-title">Bitcoin steady above $71K as ETF inflows accelerate</div>
+          <div class="side-meta">BUSINESS · 1h ago</div>
+        </div>
+      </article>
+      <article class="side-card">
+        <span class="side-num">04</span>
+        <div>
+          <div class="side-title">OpenAI teases a new reasoning model ahead of Thursday event</div>
+          <div class="side-meta">TECH · 2h ago</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="score-strip">
+  <div class="strip-head"><h2>Scores right now</h2></div>
+  <div class="score-row">
+    <div class="score-card">
+      <div class="score-league">PREMIER LEAGUE</div>
+      <div class="score-match"><span>Man City</span><span class="score-num">3–0</span><span>Everton</span></div>
+      <div class="score-time">HT</div>
+    </div>
+    <div class="score-card">
+      <div class="score-league">NBL — MAINLAND CUP</div>
+      <div class="score-match"><span>Simba</span><span class="score-num">2–1</span><span>Yanga</span></div>
+      <div class="score-time">78' LIVE</div>
+    </div>
+    <div class="score-card">
+      <div class="score-league">LA LIGA</div>
+      <div class="score-match"><span>Barcelona</span><span class="score-num">1–1</span><span>Sevilla</span></div>
+      <div class="score-time">Kickoff 20:00</div>
+    </div>
+    <div class="score-card">
+      <div class="score-league">AFCON QUALIFIERS</div>
+      <div class="score-match"><span>Tanzania</span><span class="score-num">—</span><span>Egypt</span></div>
+      <div class="score-time">Sat, 18:00</div>
+    </div>
+  </div>
+</section>
+
+<section class="feed">
+  <div class="feed-head">
+    <h2>The Feed</h2>
+    <div class="filter-pills">
+      <button class="pill active">All</button>
+      <button class="pill">Sport</button>
+      <button class="pill">Tech</button>
+    </div>
+  </div>
+  <div class="feed-grid">
+    <article class="story-card">
+      <div class="story-thumb"><span class="cat-chip chip-sport">Sport</span></div>
+      <div class="story-body">
+        <h3 class="story-title">Ronaldo confirms he'll play until age 45, says fitness team</h3>
+        <p class="story-excerpt">The forward's camp says his data-driven recovery routine has him tracking well ahead of peers a decade younger.</p>
+        <div class="story-meta"><span>Football</span><span>12m ago</span></div>
+      </div>
+    </article>
+    <article class="story-card">
+      <div class="story-thumb tech"><span class="cat-chip chip-tech">Tech</span></div>
+      <div class="story-body">
+        <h3 class="story-title">Starlink begins direct-to-phone rollout across East Africa</h3>
+        <p class="story-excerpt">No SIM swap required — carriers say standard 5G phones will connect to satellite for texts first, calls by year-end.</p>
+        <div class="story-meta"><span>Telecom</span><span>25m ago</span></div>
+      </div>
+    </article>
+    <article class="story-card">
+      <div class="story-thumb"><span class="cat-chip chip-sport">Sport</span></div>
+      <div class="story-body">
+        <h3 class="story-title">NBA trade deadline: three moves that reshaped the West</h3>
+        <p class="story-excerpt">A late blockbuster sent shockwaves through the standings — here's what it means for the playoff race.</p>
+        <div class="story-meta"><span>Basketball</span><span>41m ago</span></div>
+      </div>
+    </article>
+    <article class="story-card">
+      <div class="story-thumb tech"><span class="cat-chip chip-tech">Tech</span></div>
+      <div class="story-body">
+        <h3 class="story-title">Local fintech startup raises $4M to expand mobile money rails</h3>
+        <p class="story-excerpt">The Dar-based team plans to launch in three new markets by Q4, targeting cross-border remittance fees.</p>
+        <div class="story-meta"><span>Startups</span><span>1h ago</span></div>
+      </div>
+    </article>
+    <article class="story-card">
+      <div class="story-thumb"><span class="cat-chip chip-sport">Sport</span></div>
+      <div class="story-body">
+        <h3 class="story-title">Kenya's marathon dominance: inside the training camps of Iten</h3>
+        <p class="story-excerpt">A look at the altitude routines and diet science behind another year of record-breaking finishes.</p>
+        <div class="story-meta"><span>Athletics</span><span>1h ago</span></div>
+      </div>
+    </article>
+    <article class="story-card">
+      <div class="story-thumb tech"><span class="cat-chip chip-tech">Tech</span></div>
+      <div class="story-body">
+        <h3 class="story-title">Why on-device AI is finally fast enough to matter</h3>
+        <p class="story-excerpt">New chips cut inference time by 60% — what it unlocks for apps that work offline in low-connectivity regions.</p>
+        <div class="story-meta"><span>AI</span><span>2h ago</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="ad-slot">
+  <div class="ad-box">ADVERTISE HERE — SPACE AVAILABLE · CONTACT SALES</div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">MIDIZO</div>
+      <div class="footer-tag">The pulse of sport, tech & everything moving.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">Advertise</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
